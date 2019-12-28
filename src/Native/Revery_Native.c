@@ -15,12 +15,18 @@
 #import "ReveryAppDelegate.h"
 #else
 #include "ReveryGtk.h"
+#include <libnotify/notify.h>
 #endif
 
 CAMLprim value revery_initialize() {
 #ifdef __APPLE__
   ReveryAppDelegate *delegate = [ReveryAppDelegate new];
   [NSApp setDelegate:delegate];
+#elif __linux__
+  gboolean res = notify_init("Revery");
+  if (!res) {
+    printf("WARNING: libnotify failed to initialize!\n");
+  }
 #endif
   return Val_unit;
 }

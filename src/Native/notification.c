@@ -30,6 +30,8 @@ CAMLprim value revery_dispatchNotification(value vNotificationT) {
     mute = Int_val(Field(vNotificationT, 3));
 #ifdef __APPLE__
     revery_dispatchNotification_cocoa(title, body, onClickCaml, mute);
+#elif __linux__
+    revery_dispatchNotification_gtk(title, body, onClickCaml, mute);
 #else
 UNUSED(title);
 UNUSED(body);

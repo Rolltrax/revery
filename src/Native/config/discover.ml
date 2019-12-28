@@ -12,7 +12,7 @@ let get_linux_config c =
   match C.Pkg_config.get c with
   | None -> default
   | Some pc -> (
-    match C.Pkg_config.query pc ~package:"gtk+-3.0" with
+    match C.Pkg_config.query pc ~package:"gtk+-3.0 libnotify" with
     | None -> default
     | Some conf -> {libs= conf.libs; cflags= conf.cflags; flags= []} )
 
